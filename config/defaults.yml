@@ -1,5 +1,6 @@
 interval: 60 # in seconds
 bufferSize: 200 # how many IDs should be stored in the duplicate cache?
+disableMail: false # for debugging purposes
 
 urls:
   - https://www.gumtree.pl/s-mieszkania-i-domy-do-wynajecia/warszawa/v1c9008l3200008p1

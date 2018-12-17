@@ -41,6 +41,11 @@ const timer = async () => {
 }
 
 const start = async () => {
+	if (config.disableMail) {
+		console.log(
+			'WARNING: Mail sending is disabled! To turn it on, modify your configuration.'
+		)
+	}
 	await tmpInit()
 	await idDb.load()
 	timer()

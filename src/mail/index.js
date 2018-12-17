@@ -23,36 +23,38 @@ const getImage = async (id, url, index) => {
 
 const sendOffer = async offer => {
 	const {id, images, price, title, features} = offer
-	const imagePaths = await Promise.all(
-		images.map((url, index) => getImage(id, url, index))
-	)
-	await mailer.sendMail({
-		from: `${config.from.name} <${config.from.email}>`,
-		to: `${config.to.name} <${config.to.email}>`,
-		subject: `${price} | ${title}`,
-		attachments: imagePaths.map((path, index) => ({
-			path,
-			filename: `${index + 1}.jpg`,
-		})),
-		html: renderMail(template, {
-			...offer,
-			features: Object.entries(features).map(([name, value]) => ({
-				name,
-				value,
-			})),
-		}),
-	})
-	await Promise.all(
-		imagePaths.map(
-			path =>
-				new Promise((resolve, reject) => {
-					fs.unlink(path, err => {
-						if (err) reject(err)
-						resolve(true)
-					})
-				})
+	if (!config.disableMail) {
+		const imagePaths = await Promise.all(
+			images.map((url, index) => getImage(id, url, index))
 		)
-	)
+		await mailer.sendMail({
+			from: `${config.from.name} <${config.from.email}>`,
+			to: `${config.to.name} <${config.to.email}>`,
+			subject: `${price} | ${title}`,
+			attachments: imagePaths.map((path, index) => ({
+				path,
+				filename: `${index + 1}.jpg`,
+			})),
+			html: renderMail(template, {
+				...offer,
+				features: Object.entries(features).map(([name, value]) => ({
+					name,
+					value,
+				})),
+			}),
+		})
+		await Promise.all(
+			imagePaths.map(
+				path =>
+					new Promise((resolve, reject) => {
+						fs.unlink(path, err => {
+							if (err) reject(err)
+							resolve(true)
+						})
+					})
+			)
+		)
+	}
 	console.log(`Successfully sent offer #${id}: ${title}.`)
 }
 
