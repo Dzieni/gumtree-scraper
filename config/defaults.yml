@@ -23,3 +23,5 @@ from:
 to:
   name: The Offer Explorer
   email: you@example.com
+
+# more config options described in README
