@@ -3,6 +3,7 @@ import {getOfferList, getOfferData} from '@app/gumtree'
 import sendOffer from '@app/mail'
 import idDb from '@app/idDb'
 import tmpInit from '@app/tmp'
+import offerFilter from '@app/filter'
 import process from 'process'
 
 let timerRunning = false
@@ -23,7 +24,9 @@ const timer = async () => {
 					.filter(o => !idDb.isDuplicate(o.id))
 					.map(async ({id, url}) => {
 						const offer = await getOfferData(url)
-						await sendOffer(offer)
+						if (offerFilter(offer)) {
+							await sendOffer(offer)
+						}
 						idDb.add(id)
 					})
 			)
