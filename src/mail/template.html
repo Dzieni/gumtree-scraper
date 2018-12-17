@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=600, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>{{ title }}</title>
+	</head>
+	<body>
+		<div
+			style="margin: 0 auto; width: 600px; font-family: Arial, sans-serif; font-size: 13px;"
+		>
+			<h1 style="font-size: 2em; margin: 0.5em 0;">
+				<a href="{{url}}">{{ title }}</a>
+			</h1>
+			{{#images.0}}
+			<a href="{{url}}" target="_blank">
+				<img
+					src="{{images.0}}"
+					style="display: block; width: 600px; height: auto;"
+					width="600"
+				/>
+			</a>
+			{{/images.0}}
+			<table style="border-collapse: collapse; width: 100%; font-size: 13px;">
+				<tbody>
+					<tr>
+						<td style="padding: 1em 0; font-size: 1.5em;">
+							<strong>Cena</strong>
+						</td>
+						<td style="padding:1em 0;font-size:1.5em">{{ price }}</td>
+					</tr>
+					{{#features}}
+					<tr>
+						<td style="padding: 0.5em 0; border-top: 1px solid #eeeeee;">
+							<strong>{{ name }}</strong>
+						</td>
+						<td
+							style="padding:0.5em 0; border-top:1px solid #eeeeee; width: 65%;"
+						>
+							{{ value }}
+						</td>
+					</tr>
+					{{/features}}
+				</tbody>
+			</table>
+			<div style="margin-top: 20px;">{{{ contentHtml }}}</div>
+			<a
+				target="_blank"
+				href="{{url}}"
+				style="display: block; text-align: center; font-size: 1.5em; margin-top: 1em; padding: 1em 0; border-top: 1px solid #cccccc;"
+			>
+				Pokaż ogłoszenie na Gumtree
+			</a>
+		</div>
+	</body>
+</html>

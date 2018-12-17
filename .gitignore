@@ -1,0 +1,8 @@
+.DS_Store
+node_modules
+npm-debug.log
+dist
+tmp
+id-cache
+config/config.yml
+.vscode

@@ -1,0 +1,25 @@
+interval: 60 # in seconds
+bufferSize: 200 # how many IDs should be stored in the duplicate cache?
+
+urls:
+  - https://www.gumtree.pl/s-mieszkania-i-domy-do-wynajecia/warszawa/v1c9008l3200008p1
+
+# smtp and smtpAuth are passed as params to nodemailer.createTransport
+# https://nodemailer.com/usage/
+smtp:
+  pool: true
+  host: in-v3.mailjet.com
+  port: 465
+  secure: true
+
+smtpAuth:
+  user: enter_those
+  pass: in_config_yml
+
+from:
+  name: GUMTREE
+  email: gumtree@example.com
+
+to:
+  name: The Offer Explorer
+  email: you@example.com
