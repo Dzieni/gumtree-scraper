@@ -1,6 +1,7 @@
 import cheerio from 'cheerio'
 import fetch from 'node-fetch'
 
+const GUMTREE_URL_PREFIX = 'https://www.gumtree.pl'
 const IMG_URL_PREFIX = 'https://img.classistatic.com/crop/50x50/'
 const IMG_URL_DEFAULT_NAME = '$_19.JPG'
 const IMG_URL_DESIRED_NAME = '$_20.JPG'
@@ -13,16 +14,15 @@ export const getOfferList = async url => {
 			id: $(el)
 				.parent()
 				.data('adid'),
-			url: $(el)
+			url: `${GUMTREE_URL_PREFIX}${$(el)
 				.find('.href-link')
-				.attr('href'),
+				.attr('href')}`,
 		}))
 		.get()
 }
 
 export const getOfferData = async url => {
-	const absUrl = `https://www.gumtree.pl${url}`
-	const req = await fetch(absUrl)
+	const req = await fetch(url)
 	const $ = cheerio.load(await req.text())
 
 	const data = {
