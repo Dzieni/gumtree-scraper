@@ -11,10 +11,10 @@
 			style="margin: 0 auto; width: 600px; font-family: Arial, sans-serif; font-size: 13px;"
 		>
 			<h1 style="font-size: 2em; margin: 0.5em 0;">
-				<a href="{{url}}">{{ title }}</a>
+				<a href="{{ url }}">{{ title }}</a>
 			</h1>
 			{{#images.0}}
-			<a href="{{url}}" target="_blank">
+			<a href="{{ url }}" target="_blank">
 				<img
 					src="{{images.0}}"
 					style="display: block; width: 600px; height: auto;"
@@ -44,11 +44,24 @@
 					{{/features}}
 				</tbody>
 			</table>
-			<div style="margin-top: 20px;">{{{ contentHtml }}}</div>
+			<div
+				style="margin-top: 20px; margin-bottom: 1em; padding-bottom: 1em; border-bottom: 1px solid #cccccc;"
+			>
+				{{{ contentHtml }}}
+			</div>
+			{{#phoneNumber}}
 			<a
 				target="_blank"
-				href="{{url}}"
-				style="display: block; text-align: center; font-size: 1.5em; margin-top: 1em; padding: 1em 0; border-top: 1px solid #cccccc;"
+				href="tel:{{ phoneNumber }}"
+				style="display: block; text-align: center; font-size: 1.5em; padding: 0.6em 0;"
+			>
+				Zadzwoń
+			</a>
+			{{/phoneNumber}}
+			<a
+				target="_blank"
+				href="{{ url }}"
+				style="display: block; text-align: center; font-size: 1.5em; padding: 0.6em 0;"
 			>
 				Pokaż ogłoszenie na Gumtree
 			</a>
