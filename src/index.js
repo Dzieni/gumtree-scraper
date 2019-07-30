@@ -6,6 +6,8 @@ import tmpInit from '@app/tmp'
 import offerFilter from '@app/filter'
 import process from 'process'
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
 let timerRunning = false
 
 const timer = async () => {
@@ -23,11 +25,35 @@ const timer = async () => {
 				offers
 					.filter(o => !idDb.isDuplicate(o.id))
 					.map(async ({id, url}) => {
-						const offer = await getOfferData(url)
-						if (offerFilter(offer)) {
-							await sendOffer(offer)
+						let retryCount = 0
+						let success
+
+						const fn = async () => {
+							const iteration = retryCount
+							const offer = await getOfferData(url)
+
+							if (success || iteration < retryCount) return
+							if (offerFilter(offer)) {
+								await sendOffer(offer)
+							}
+
+							idDb.add(id)
+							success = true
 						}
-						idDb.add(id)
+
+						fn()
+						while (!success) {
+							await sleep(10000)
+							if (!success) {
+								if (retryCount >= 5) {
+									console.log(`Skipped getting offer #${id} after 5 tries :(`)
+									return
+								}
+								console.log(`Trying do get offer #${id} again...`)
+								retryCount++
+								fn()
+							}
+						}
 					})
 			)
 		})
