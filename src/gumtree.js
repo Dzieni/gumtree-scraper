@@ -9,7 +9,7 @@ const IMG_URL_DESIRED_NAME = '$_20.JPG'
 export const getOfferList = async url => {
 	const req = await fetch(url)
 	const $ = cheerio.load(await req.text())
-	return $('.result-link')
+	return $('.tileV1')
 		.map((_, el) => ({
 			id: $(el)
 				.parent()
