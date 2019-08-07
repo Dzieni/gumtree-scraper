@@ -1,0 +1,13 @@
+[Unit]
+Description=Gumtree fetch service
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=gumtree
+ExecStart=/usr/bin/node /home/gumtree/gumtree-scrapper/dist/main.js
+
+[Install]
+WantedBy=multi-user.target
