@@ -3,6 +3,7 @@ var webpack = require('webpack')
 
 module.exports = {
 	target: 'node',
+	devtool: 'inline-source-map',
 	mode: 'development',
 	entry: ['@babel/polyfill', './src/index.js'],
 	module: {
