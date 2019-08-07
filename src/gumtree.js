@@ -12,8 +12,9 @@ export const getOfferList = async url => {
 	return $('.tileV1')
 		.map((_, el) => ({
 			id: $(el)
-				.parent()
-				.data('adid'),
+				.find('.href-link')
+				.attr('href')
+				.slice(-25),
 			url: `${GUMTREE_URL_PREFIX}${$(el)
 				.find('.href-link')
 				.attr('href')}`,
